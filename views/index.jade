@@ -1,0 +1,15 @@
+extends layout
+
+
+block content
+    h1= title
+    p Welcome to #{title}
+
+    if (authorized)
+        p You are amazing
+        include chat
+    else
+        if (authorized !== undefined)
+            p You are almost amazing
+
+        include connection
