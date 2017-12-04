@@ -8,7 +8,9 @@ window.onload = function() {
             messages.push(data.message);
             msgHtmlCode = '';
             for (var i = 0; i < messages.length; i++) {
-                msgHtmlCode += messages[i].author + '> ' + messages[i].content + '<br />';
+                if (messages[i].author && messages[i].content) {
+                    msgHtmlCode += messages[i].author + '> ' + messages[i].content + '<br />';
+                }
             }
             document.getElementById('message_boxes').innerHTML = msgHtmlCode;
         }
@@ -18,6 +20,7 @@ window.onload = function() {
         var message = {};
         message.author = document.getElementById('username').innerText;
         message.content = document.getElementById('tosendtext').value;
+        document.getElementById('tosendtext').value = '';
         socket.emit('sendmessage', { message: message});
     };
 }
