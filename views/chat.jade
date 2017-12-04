@@ -2,17 +2,17 @@ div(id='main_frame')
     div(id='chat')
         p Messages
         br
-
-        if (session.messages !== undefined)
-            each msg in session.messages
-                div(class='message_box')
-                    p Message:
-                    div(class='message_date') #{msg.date}
-                    div(class='message_author') #{msg.author}
-                    div(class='message_content') #{msg.content}
+        div(id='message_boxes')
+            if (session.messages !== undefined)
+                each msg in session.messages
+                    div(class='message_box')
+                        p Message:
+                        div(class='message_date') #{msg.date}
+                        div(class='message_author') #{msg.author}
+                        div(class='message_content') #{msg.content}
 
     div(id='compose')
-        form(action='/sendmessage', method='POST')
+            //form(action='/sendmessage', method='POST')
             label Message: &nbsp;
-            input(name='message', type='text', required)
-            input(name='submit', value='Send', type='submit')
+            input(id='tosendtext', name='message', type='text', required)
+            input(id='sendButton', name='submit', value='Send', type='submit')

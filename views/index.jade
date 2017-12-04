@@ -6,7 +6,7 @@ block content
     p Welcome to #{title}
 
     if (session.loggedIn)
-        p You are amazing
+        p #[strong(id='username') #{session.username}], you are amazing
         include chat
     else
         if (session.loggedIn !== undefined)

@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
+var port = 8080;
 var app = express();
 
 // view engine setup
@@ -46,5 +47,12 @@ app.use(function (err, req, res, next) {
     res.render('error');
 });
 
-app.listen(8080);
+//app.listen(port);
+var io = require('socket.io').listen(app.listen(port));
+io.sockets.on('connection', function(socket) {
+    socket.emit('message', { message: 'Welcome to E-Mothep !'});
+    socket.on('sendmessage', function(data) {
+        io.sockets.emit('message', data);
+    })
+})
 module.exports = app;
