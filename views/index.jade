@@ -5,11 +5,11 @@ block content
     h1= title
     p Welcome to #{title}
 
-    if (authorized)
+    if (session.loggedIn)
         p You are amazing
         include chat
     else
-        if (authorized !== undefined)
+        if (session.loggedIn !== undefined)
             p You are almost amazing
 
         include connection
