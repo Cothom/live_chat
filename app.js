@@ -50,7 +50,7 @@ app.use(function (err, req, res, next) {
 //app.listen(port);
 var io = require('socket.io').listen(app.listen(port));
 io.sockets.on('connection', function(socket) {
-    socket.emit('message', { message: 'Welcome to E-Mothep !'});
+    //socket.emit('message', { message: 'Welcome to E-Mothep !'});
     socket.on('sendmessage', function(data) {
         io.sockets.emit('message', data);
 

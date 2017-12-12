@@ -66,17 +66,17 @@ function getMessages(req, res) {
 }
 
 router.get('/', function (req, res, next) {
-        if (req.session.loggedIn) {
+        if (req.session.loggedIn && req.session.messages == undefined) {
             getMessages(req, res);
         } else {
             res.render('index', {title: 'Express', session: req.session});
         }
-    });
+});
 router.post('/connect', urlencodedParser, function(req, res, next) {
         var user = req.body.username;
         var passwd = req.body.password;
         authIsValid(user, passwd, req, res);
-    });
+});
 router.post('/registrate', urlencodedParser, function(req, res, next) {
     var user = req.body.username;
     var passwd1 = req.body.password1;
@@ -92,12 +92,12 @@ router.post('/registrate', urlencodedParser, function(req, res, next) {
         res.render('index', {title: 'Express', session: req.session});
     }
 });
-router.post('/sendmessage', urlencodedParser, function(req, res, next) {
+/*router.post('/sendmessage', urlencodedParser, function(req, res, next) {
     var message = req.body.message;
     messages.push({'date': message.date, 'author': req.session.username, 'content': message.content});
     addMessage(message.date, req.session.username, message.content);
     req.session.messages = messages;
     res.redirect('/');
-});
+});*/
 
 module.exports = router;

@@ -1,17 +1,17 @@
 window.onload = function() {
     var socket = io.connect('localhost:8080');
     var messages = [];
-    var sendButton = document.getElementById('sendButton');
+    var sendButton = document.getElementById('sendbutton');
 
     socket.on('message', function(data) {
         if (data) {
             messages.push(data);
             var msgHtmlCode = '';
             //for (var i = 0; i < messages.length; i++) {
-            if (data.author && data.content) {
-                    msgHtmlCode += data.author + '> ' + data.content + '<br />';
-                }
+            if (data.date && data.author && data.content) {
+                    msgHtmlCode += '<p>[' + data.date + '] : ' + data.author + ' > ' + data.content + '</p>';
             }
+            //}
             document.getElementById('message_boxes').innerHTML += msgHtmlCode;
         }
     });
