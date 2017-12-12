@@ -1,6 +1,5 @@
 extends layout
 
-
 block content
     h1= title
     p Welcome to #{title}
@@ -12,4 +11,8 @@ block content
         if (session.loggedIn !== undefined)
             p You are almost amazing
 
+        h2 Connection:
         include connection
+        br
+        h2 Registration:
+        include registration

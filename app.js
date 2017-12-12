@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var bodyParser = require('body-parser');
+var messagesModel = require('./models/messages');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -27,7 +28,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -53,6 +53,19 @@ io.sockets.on('connection', function(socket) {
     socket.emit('message', { message: 'Welcome to E-Mothep !'});
     socket.on('sendmessage', function(data) {
         io.sockets.emit('message', data);
+
+        var db = new messagesModel();
+        db.msgDate = data.date;
+        db.msgAuthor = data.author;
+        db.msgContent = data.content;
+        console.log('app.js:on(sendmessage) -> ' + data.date + ' ' + data.author + ' ' + data.content);
+        db.save(function(err) {
+            if (err) {
+                console.log('app.js:addMessage.save -> Error adding data');
+            } else {
+                console.log('app.js:addMessage.save -> Data added');
+            }
+        });
     })
-})
+});
 module.exports = app;
